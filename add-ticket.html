@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Add Ticket - Create new support ticket in CRM System">
+    <meta name="keywords" content="CRM, add ticket, support, customer service, ticket creation">
+    <meta name="author" content="CRM System">
+    <title>Add Ticket - CRM System</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Sidebar -->
+                <nav class="col-md-3 col-lg-2 d-md-block sidebar collapse">
+                    <div class="brand-box">
+                        <div class="logo-square">R</div>
+                        <div class="brand-text">RevalERP</div>
+                    </div>
+                    <div class="position-sticky pt-3">
+                        <ul class="nav flex-column">
+                            <li class="nav-item"><a class="nav-link" href="index.html"><i class="fas fa-home me-1"></i>
+                                    Dashboard</a></li>
+                            <li class="nav-item"><a class="nav-link" href="add-ticket.html"><i
+                                        class="fas fa-plus-circle me-1"></i>Add</a></li>
+                            <li class="nav-item"><a class="nav-link" href="tickets.html"><i
+                                        class="fas fa-ticket-alt me-1"></i>Tickets</a></li>
+                            <li class="nav-item"><a class="nav-link" href="reports.html"><i
+                                        class="fas fa-th-large me-1"></i> Reports</a></li>
+                            <li class="nav-item"><a class="nav-link " href="masters.html"><i class="fas fa-chart-bar me-1"></i>
+                                    Masters</a></li>
+                        </ul>
+                    </div>
+                </nav>
+
+                <!-- Main Form Content (full width panel) -->
+                <div class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                    <div class="app-frame">
+                        <div class="app-header mb-3">
+                            <button class="btn btn-sm app-hamburger"><i class="fas fa-bars"></i></button>
+                            <div class="app-title">Add Ticket</div>
+                            <div class="app-actions">
+                                <button id="extractBtn" class="btn btn-sm btn-extract">Extract</button>
+                                <button id="loginBtn" class="btn btn-sm btn-login">Login</button>
+                                <button id="notifyBtn" class="btn btn-sm btn-notify" title="Notifications"><i
+                                        class="fas fa-bell"></i></button>
+                                <button id="userBtn" class="btn btn-sm btn-user" title="Account"><i
+                                        class="fas fa-user"></i></button>
+                            </div>
+                        </div>
+                        <div class="app-breadcrumb"><i class="fas fa-chevron-left me-2"></i> Add Ticket</div>
+
+                        <!-- Ticket Form -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card shadow mb-4">
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold text-primary">Ticket Information</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <form id="ticketForm" novalidate>
+                                            <!-- Top fields: Project / Module / Instance / Template -->
+                                            <div class="row mb-3">
+                                                <div class="col-md-3">
+                                                    <label for="project" class="form-label">Project*</label>
+                                                    <select id="project" name="project" class="form-select">
+                                                        <option>Select Project</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="module" class="form-label">Module*</label>
+                                                    <select id="module" name="module" class="form-select">
+                                                        <option>Select Module</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="instance" class="form-label">Instance*</label>
+                                                    <select id="instance" name="instance" class="form-select">
+                                                        <option>Select Instance</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="templateName" class="form-label">Ticket Template
+                                                        Name</label>
+                                                    <select id="templateName" name="templateName" class="form-select">
+                                                        <option>Select Template Name</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <!-- Second row: Title / Department / Sub Department / Issue Type -->
+                                            <div class="row mb-3">
+                                                <div class="col-md-3">
+                                                    <label for="ticketSubject" class="form-label">Ticket Title*</label>
+                                                    <input type="text" class="form-control" id="ticketSubject"
+                                                        name="ticketSubject" placeholder="Enter Title" required>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="ticketDepartment" class="form-label">Ticket
+                                                        Department*</label>
+                                                    <select id="ticketDepartment" name="ticketDepartment"
+                                                        class="form-select">
+                                                        <option>Select Department</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="subDepartment" class="form-label">Sub Ticket
+                                                        Department*</label>
+                                                    <select id="subDepartment" name="subDepartment" class="form-select">
+                                                        <option>Select Sub Department</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="issueType" class="form-label">Issue Type*</label>
+                                                    <select id="issueType" name="issueType" class="form-select">
+                                                        <option>Select Issue Type</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <!-- Third row: Priority / Source / Email CC -->
+                                            <div class="row mb-3">
+                                                <div class="col-md-3">
+                                                    <label for="ticketPriority" class="form-label">Priority*</label>
+                                                    <select class="form-select" id="ticketPriority"
+                                                        name="ticketPriority" required>
+                                                        <option value="">Select Priority</option>
+                                                        <option value="low">Low</option>
+                                                        <option value="medium">Medium</option>
+                                                        <option value="high">High</option>
+                                                        <option value="urgent">Urgent</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="ticketSource" class="form-label">Ticket Source*</label>
+                                                    <select id="ticketSource" name="ticketSource" class="form-select">
+                                                        <option>Select Source</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="emailCC" class="form-label">Email CC</label>
+                                                    <input type="email" class="form-control" id="emailCC" name="emailCC"
+                                                        placeholder="Enter CC Email">
+                                                </div>
+                                            </div>
+
+                                            <!-- Description (rich editor placeholder) -->
+                                            <div class="mb-3">
+                                                <label for="ticketDescription" class="form-label">Description *</label>
+                                                <textarea class="form-control" id="ticketDescription"
+                                                    name="ticketDescription" rows="8" required
+                                                    placeholder="Detailed description of the issue or request"></textarea>
+                                                <div class="invalid-feedback">Please provide a description</div>
+                                            </div>
+
+                                            <!-- Attachments area -->
+                                            <div class="mb-3">
+                                                <label for="ticketAttachments" class="form-label">Attachments</label>
+                                                <div class="border rounded p-3" style="background:#fafafa">
+                                                    <input type="file" class="form-control" id="ticketAttachments"
+                                                        name="ticketAttachments" multiple
+                                                        accept=".jpg,.jpeg,.png,.pdf,.doc,.docx">
+                                                    <div class="form-text mt-2">Drag and drop files here or <a
+                                                            href="#">browse</a></div>
+                                                </div>
+                                                <div id="attachmentPreview" class="mt-2"></div>
+                                            </div>
+
+                                            <!-- Sidebar Additional Info preserved below -->
+                                            <div class="row mb-3">
+                                                <div class="col-md-6">
+                                                    <label for="assignedTo" class="form-label">Assign To</label>
+                                                    <select class="form-select" id="assignedTo" name="assignedTo">
+                                                        <option value="">Unassigned</option>
+                                                        <option value="agent1">John Smith</option>
+                                                        <option value="agent2">Sarah Johnson</option>
+                                                        <option value="agent3">Mike Davis</option>
+                                                        <option value="agent4">Emily Wilson</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="dueDate" class="form-label">Due Date</label>
+                                                    <input type="date" class="form-control" id="dueDate" name="dueDate">
+                                                </div>
+                                            </div>
+
+                                            <!-- Submit Buttons aligned right like screenshot -->
+                                            <div class="d-flex justify-content-end gap-2">
+                                                <button type="button" class="btn btn-secondary"
+                                                    onclick="resetForm()">Cancel</button>
+                                                <button type="button" class="btn btn-success" id="saveBtn"><i
+                                                        class="fas fa-save me-1"></i> Save</button>
+                                                <button type="submit" class="btn btn-primary" id="submitBtn"><i
+                                                        class="fas fa-paper-plane me-1"></i> Save &amp; Send</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Sidebar Information removed per design -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <!-- Custom JS -->
+    <script src="main.js"></script>
+    <script>
+        // Additional form-specific JavaScript
+        $(document).ready(function () {
+            // File upload preview
+            $('#ticketAttachments').on('change', function (e) {
+                var files = e.target.files;
+                var preview = $('#attachmentPreview');
+                preview.empty();
+
+                if (files.length > 0) {
+                    var fileList = '<div class="mt-2"><h6>Selected Files:</h6><ul class="list-unstyled">';
+                    for (var i = 0; i < files.length; i++) {
+                        var file = files[i];
+                        var fileSize = (file.size / 1024 / 1024).toFixed(2);
+                        fileList += '<li class="mb-1"><i class="fas fa-file me-2"></i>' +
+                            file.name + ' (' + fileSize + ' MB)</li>';
+                    }
+                    fileList += '</ul></div>';
+                    preview.append(fileList);
+                }
+            });
+
+            // Character counter for description
+            $('#ticketDescription').on('input', function () {
+                var length = $(this).val().length;
+                var counter = $('#descriptionCounter');
+                if (counter.length === 0) {
+                    $(this).after('<small id="descriptionCounter" class="form-text">Characters: ' + length + '</small>');
+                } else {
+                    counter.text('Characters: ' + length);
+                }
+
+                if (length < 20) {
+                    counter.addClass('text-danger');
+                } else {
+                    counter.removeClass('text-danger');
+                }
+            });
+
+            // Auto-save draft
+            var autoSaveTimer;
+            $('#ticketForm input, #ticketForm textarea, #ticketForm select').on('input change', function () {
+                clearTimeout(autoSaveTimer);
+                autoSaveTimer = setTimeout(function () {
+                    saveDraft(true); // silent save
+                }, 5000);
+            });
+        });
+
+        // Reset form
+        function resetForm() {
+            if (confirm('Are you sure you want to reset the form? All data will be lost.')) {
+                $('#ticketForm')[0].reset();
+                $('#attachmentPreview').empty();
+                $('#descriptionCounter').remove();
+                $('#ticketForm .form-control').removeClass('is-valid is-invalid');
+            }
+        }
+
+        // Save draft
+        function saveDraft(silent) {
+            var formData = $('#ticketForm').serializeArray();
+            var draftData = {};
+
+            formData.forEach(function (field) {
+                draftData[field.name] = field.value;
+            });
+
+            localStorage.setItem('ticketDraft', JSON.stringify(draftData));
+
+            if (!silent) {
+                showAlert('info', 'Draft saved successfully!');
+            }
+        }
+
+        // Load draft on page load
+        $(document).ready(function () {
+            var draftData = localStorage.getItem('ticketDraft');
+            if (draftData) {
+                var draft = JSON.parse(draftData);
+
+                // Populate form fields
+                Object.keys(draft).forEach(function (key) {
+                    var field = $('[name="' + key + '"]');
+                    if (field.length > 0 && draft[key]) {
+                        field.val(draft[key]);
+                    }
+                });
+
+                // Show notification
+                showAlert('info', 'Draft loaded. You can continue editing or reset the form.');
+            }
+        });
+    </script>
+</body>
+
+</html>

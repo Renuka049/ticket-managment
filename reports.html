@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CRM Analytics - Advanced analytics and reporting dashboard">
+    <meta name="keywords" content="CRM analytics, reporting, dashboard, charts, metrics, KPI">
+    <meta name="author" content="CRM System">
+    <title>Reports - CRM System</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="style.css" rel="stylesheet">
+</head>
+
+<body class="reports-page">
+    <!-- Navigation removed per design -->
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Sidebar -->
+                <nav class="col-md-3 col-lg-2 d-md-block sidebar collapse">
+                    <div class="brand-box">
+                        <div class="logo-square">R</div>
+                        <div class="brand-text">RevalERP</div>
+                    </div>
+                    <div class="position-sticky pt-3">
+                       <ul class="nav flex-column">
+                            <li class="nav-item"><a class="nav-link" href="index.html"><i class="fas fa-home me-1"></i>
+                                    Dashboard</a></li>
+                            <li class="nav-item"><a class="nav-link" href="add-ticket.html"><i
+                                        class="fas fa-plus-circle me-1"></i>Add</a></li>
+                            <li class="nav-item"><a class="nav-link" href="tickets.html"><i
+                                        class="fas fa-ticket-alt me-1"></i>Tickets</a></li>
+                            <li class="nav-item"><a class="nav-link" href="reports.html"><i
+                                        class="fas fa-th-large me-1"></i> Reports</a></li>
+                            <li class="nav-item"><a class="nav-link " href="masters.html"><i class="fas fa-chart-bar me-1"></i>
+                                    Masters</a></li>
+                        </ul>
+                    </div>
+                </nav>
+
+                <div class="col-md-9 ms-sm-auto col-lg-10 px-md-4 ticket-list">
+                    <div class="app-frame">
+                        <div class="app-header mb-3">
+                            <button class="btn btn-sm app-hamburger"><i class="fas fa-bars"></i></button>
+                            <div class="app-title">Reports</div>
+                            <div class="app-actions">
+                                <button id="extractBtn" class="btn btn-sm btn-extract">Extract</button>
+                                <button id="loginBtn" class="btn btn-sm btn-login">Login</button>
+                                <button id="notifyBtn" class="btn btn-sm btn-notify" title="Notifications"><i
+                                        class="fas fa-bell"></i></button>
+                                <button id="userBtn" class="btn btn-sm btn-user" title="Account"><i
+                                        class="fas fa-user"></i></button>
+                            </div>
+                        </div>
+                        <div
+                            class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-0 pb-2 mb-3 border-bottom">
+                            <h1 class="h2">Reports</h1>
+                            <div class="btn-toolbar mb-2 mb-md-0">
+                                <div class="btn-group me-2">
+                                    <button type="button" class="btn btn-sm btn-outline-secondary"
+                                        onclick="runSelectedReport()">
+                                        <i class="fas fa-play"></i> Run
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary"
+                                        onclick="downloadReport()">
+                                        <i class="fas fa-download"></i> Download
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <div class="card shadow mb-4">
+                                    <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                                        <h6 class="m-0 font-weight-bold text-primary">Available Reports</h6>
+                                        <div>
+                                            <button class="btn btn-sm btn-primary" onclick="createReport()"><i
+                                                    class="fas fa-plus me-1"></i> New Report</button>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-bordered" id="reportsTable">
+                                                <thead>
+                                                    <tr>
+                                                        <th></th>
+                                                        <th>Report Name</th>
+                                                        <th>Type</th>
+                                                        <th>Owner</th>
+                                                        <th>Last Run</th>
+                                                        <th>Status</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td><input type="checkbox" class="report-check" /></td>
+                                                        <td>Monthly Ticket Summary</td>
+                                                        <td>Summary</td>
+                                                        <td>Sarah Johnson</td>
+                                                        <td>2026-01-05 10:12</td>
+                                                        <td><span class="badge bg-success">Available</span></td>
+                                                        <td><button class="btn btn-sm btn-outline-primary"
+                                                                onclick="runReport('monthly-summary')">Run</button></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input type="checkbox" class="report-check" /></td>
+                                                        <td>Open Tickets by Department</td>
+                                                        <td>Detail</td>
+                                                        <td>Mike Davis</td>
+                                                        <td>2026-01-06 09:00</td>
+                                                        <td><span class="badge bg-warning">Scheduled</span></td>
+                                                        <td><button class="btn btn-sm btn-outline-primary"
+                                                                onclick="runReport('open-by-dept')">Run</button></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input type="checkbox" class="report-check" /></td>
+                                                        <td>Agent Performance</td>
+                                                        <td>Analytics</td>
+                                                        <td>Admin</td>
+                                                        <td>2026-01-04 14:30</td>
+                                                        <td><span class="badge bg-secondary">Draft</span></td>
+                                                        <td><button class="btn btn-sm btn-outline-primary"
+                                                                onclick="runReport('agent-performance')">Run</button>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="card shadow mb-4">
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold text-primary">Top Performers</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-sm">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Agent</th>
+                                                        <th>Tickets</th>
+                                                        <th>Resolved</th>
+                                                        <th>Rating</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Sarah Johnson</td>
+                                                        <td>156</td>
+                                                        <td>142</td>
+                                                        <td><span class="badge bg-success">4.8</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Mike Davis</td>
+                                                        <td>142</td>
+                                                        <td>128</td>
+                                                        <td><span class="badge bg-success">4.7</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Emily Wilson</td>
+                                                        <td>138</td>
+                                                        <td>125</td>
+                                                        <td><span class="badge bg-success">4.6</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>John Smith</td>
+                                                        <td>125</td>
+                                                        <td>110</td>
+                                                        <td><span class="badge bg-info">4.5</span></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="card shadow mb-4">
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold text-primary">Recent Activities</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="timeline">
+                                            <div class="timeline-item mb-3">
+                                                <div class="d-flex">
+                                                    <div class="flex-shrink-0">
+                                                        <i class="fas fa-check-circle text-success"></i>
+                                                    </div>
+                                                    <div class="flex-grow-1 ms-3">
+                                                        <h6 class="mb-1">Ticket #TK-001 Resolved</h6>
+                                                        <p class="text-muted small mb-0">Sarah Johnson resolved login
+                                                            issue - 5 mins ago</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="timeline-item mb-3">
+                                                <div class="d-flex">
+                                                    <div class="flex-shrink-0">
+                                                        <i class="fas fa-plus-circle text-primary"></i>
+                                                    </div>
+                                                    <div class="flex-grow-1 ms-3">
+                                                        <h6 class="mb-1">New Ticket Created</h6>
+                                                        <p class="text-muted small mb-0">Payment error ticket from ABC
+                                                            Corp - 15 mins ago</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="timeline-item mb-3">
+                                                <div class="d-flex">
+                                                    <div class="flex-shrink-0">
+                                                        <i class="fas fa-user-plus text-info"></i>
+                                                    </div>
+                                                    <div class="flex-grow-1 ms-3">
+                                                        <h6 class="mb-1">New Customer Added</h6>
+                                                        <p class="text-muted small mb-0">Tech Solutions Inc. joined
+                                                            platform - 1 hour ago</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="timeline-item mb-3">
+                                                <div class="d-flex">
+                                                    <div class="flex-shrink-0">
+                                                        <i class="fas fa-exclamation-triangle text-warning"></i>
+                                                    </div>
+                                                    <div class="flex-grow-1 ms-3">
+                                                        <h6 class="mb-1">High Priority Ticket</h6>
+                                                        <p class="text-muted small mb-0">System outage reported by
+                                                            Global Tech - 2 hours ago</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </main>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Custom JS -->
+    <script src="main.js"></script>
+    <script>
+        // Analytics-specific JavaScript
+        $(document).ready(function () {
+            initializeAnalyticsCharts();
+            setupRealTimeUpdates();
+        });
+
+        function initializeAnalyticsCharts() {
+            // Trend Chart
+            var trendCtx = document.getElementById('trendChart');
+            if (trendCtx) {
+                window.trendChart = new Chart(trendCtx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                        datasets: [{
+                            label: 'Created',
+                            data: [65, 78, 90, 81, 96, 85, 70],
+                            borderColor: '#007bff',
+                            backgroundColor: 'rgba(0, 123, 255, 0.1)',
+                            tension: 0.4
+                        }, {
+                            label: 'Resolved',
+                            data: [58, 72, 85, 76, 89, 78, 65],
+                            borderColor: '#28a745',
+                            backgroundColor: 'rgba(40, 167, 69, 0.1)',
+                            tension: 0.4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Category Chart
+            var categoryCtx = document.getElementById('categoryChart');
+            if (categoryCtx) {
+                new Chart(categoryCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Technical', 'Billing', 'Account', 'Feature', 'Bug', 'Other'],
+                        datasets: [{
+                            data: [35, 20, 15, 12, 10, 8],
+                            backgroundColor: [
+                                '#007bff',
+                                '#28a745',
+                                '#ffc107',
+                                '#17a2b8',
+                                '#dc3545',
+                                '#6c757d'
+                            ]
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom'
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Agent Performance Chart
+            var agentCtx = document.getElementById('agentChart');
+            if (agentCtx) {
+                new Chart(agentCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Sarah', 'Mike', 'Emily', 'John', 'Alex', 'Lisa'],
+                        datasets: [{
+                            label: 'Tickets Resolved',
+                            data: [142, 128, 125, 110, 98, 87],
+                            backgroundColor: '#007bff'
+                        }, {
+                            label: 'Customer Rating',
+                            data: [4.8, 4.7, 4.6, 4.5, 4.4, 4.3],
+                            backgroundColor: '#28a745',
+                            yAxisID: 'y1'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                position: 'left'
+                            },
+                            y1: {
+                                beginAtZero: true,
+                                position: 'right',
+                                grid: {
+                                    drawOnChartArea: false
+                                },
+                                max: 5
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Resolution Time Chart
+            var resolutionCtx = document.getElementById('resolutionChart');
+            if (resolutionCtx) {
+                new Chart(resolutionCtx, {
+                    type: 'radar',
+                    data: {
+                        labels: ['Urgent', 'High', 'Medium', 'Low'],
+                        datasets: [{
+                            label: 'Average Hours',
+                            data: [1.2, 2.8, 4.5, 8.2],
+                            borderColor: '#ffc107',
+                            backgroundColor: 'rgba(255, 193, 7, 0.2)'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            r: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        function updateTrendChart(period) {
+            // Update button states
+            $('.btn-group .btn').removeClass('active');
+            $(event.target).addClass('active');
+
+            // Update chart data based on period
+            var labels, data1, data2;
+
+            switch (period) {
+                case 'daily':
+                    labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+                    data1 = [65, 78, 90, 81, 96, 85, 70];
+                    data2 = [58, 72, 85, 76, 89, 78, 65];
+                    break;
+                case 'weekly':
+                    labels = ['Week 1', 'Week 2', 'Week 3', 'Week 4'];
+                    data1 = [320, 380, 420, 390];
+                    data2 = [295, 350, 395, 365];
+                    break;
+                case 'monthly':
+                    labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
+                    data1 = [1200, 1350, 1400, 1380, 1450, 1500];
+                    data2 = [1100, 1250, 1320, 1280, 1350, 1420];
+                    break;
+            }
+
+            if (window.trendChart) {
+                window.trendChart.data.labels = labels;
+                window.trendChart.data.datasets[0].data = data1;
+                window.trendChart.data.datasets[1].data = data2;
+                window.trendChart.update();
+            }
+        }
+
+        function refreshData() {
+            // Show loading state
+            showAlert('info', 'Refreshing analytics data...');
+
+            // Simulate data refresh
+            setTimeout(function () {
+                showAlert('success', 'Analytics data refreshed successfully!');
+                // In real implementation, this would fetch fresh data from API
+            }, 1500);
+        }
+
+        function exportReport() {
+            showAlert('info', 'Generating analytics report...');
+
+            setTimeout(function () {
+                showAlert('success', 'Report exported successfully!');
+                // In real implementation, this would generate and download a report
+            }, 2000);
+        }
+
+        function setDateRange(range) {
+            showAlert('info', 'Updating date range to: ' + range);
+            // In real implementation, this would update all charts with new date range
+        }
+
+        function setupRealTimeUpdates() {
+            // Update KPI cards every 30 seconds
+            setInterval(function () {
+                updateKPICards();
+            }, 30000);
+        }
+
+        function updateKPICards() {
+            // Simulate real-time KPI updates
+            $('.card-body .h5').each(function () {
+                var $element = $(this);
+                var currentValue = $element.text();
+
+                // Add subtle animation to indicate update
+                $element.parent().addClass('fade-in');
+                setTimeout(function () {
+                    $element.parent().removeClass('fade-in');
+                }, 1000);
+            });
+        }
+    </script>
+</body>
+
+</html>
